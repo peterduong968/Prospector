@@ -39,7 +39,7 @@ public class Layout : MonoBehaviour
         SlotDef tSD;
         PT_XMLHashList slotsX = xml["slot"];
 
-        for (int i=0; i < slotsX.Count; i++)
+        for (int i = 0; i < slotsX.Count; i++)
         {
             tSD = new SlotDef();
             if (slotsX[i].HasAtt("type"))
@@ -50,38 +50,39 @@ public class Layout : MonoBehaviour
             {
                 tSD.type = "slot";
             }
-        }
 
-        tSD.x = float.Parse(slotsX[i].att("x"));
-        tSD.y = float.Parse(slotsX[i].att("y"));
-        tSD.layerID = int.Parse(slotsX[i].att("layer"));
 
-        tSD.layerName = sortingLayerNames[tSD.layerID];
+            tSD.x = float.Parse(slotsX[i].att("x"));
+            tSD.y = float.Parse(slotsX[i].att("y"));
+            tSD.layerID = int.Parse(slotsX[i].att("layer"));
 
-        switch (tSD.type)
-        {
-            case "slot":
-                tSD.faceUp = (slotsX[i].att("faceup") == "1");
-                tSD.id = int.Parse(slotsX[i].att("idd"));
-                if (slotsX[i].HasAtt("hiddenby"))
-                {
-                    string[] hiding = slotsX[if].att("hiddenby");
-                        foreach (string s in hiding)
+            tSD.layerName = sortingLayerNames[tSD.layerID];
+
+            switch (tSD.type)
+            {
+                case "slot":
+                    tSD.faceUp = (slotsX[i].att("faceup") == "1");
+                    tSD.id = int.Parse(slotsX[i].att("idd"));
+                    if (slotsX[i].HasAtt("hiddenby"))
                     {
-                        tSD.hiddenBy.Add(int.Parse(s));
+                        string[] hiding = slotsX[i].att("hiddenby");
+                        foreach (string s in hiding)
+                        {
+                            tSD.hiddenBy.Add(int.Parse(s));
+                        }
                     }
-                }
-                slotDefs.Add(tSD);
-                break;
+                    slotDefs.Add(tSD);
+                    break;
 
-            case "drawpile":
-                tSD.stagger.x = float.Parse(slotsX[i].att("xstart"))
-                drawpille = tSD;
-                break;
+                case "drawpile":
+                    tSD.stagger.x = float.Parse(slotsX[i].att("xstart"));
+                    drawPile = tSD;
+                    break;
 
-            case "discardpile":
-                discardPile = tSD;
-                break;
+                case "discardpile":
+                    discardPile = tSD;
+                    break;
+            }
         }
     }
 }
