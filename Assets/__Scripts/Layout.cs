@@ -62,7 +62,7 @@ public class Layout : MonoBehaviour
             {
                 case "slot":
                     tSD.faceUp = (slotsX[i].att("faceup") == "1");
-                    tSD.id = int.Parse(slotsX[i].att("idd"));
+                    tSD.id = int.Parse(slotsX[i].att("id"));
                     if (slotsX[i].HasAtt("hiddenby"))
                     {
                         string[] hiding = slotsX[i].att("hiddenby").Split(',');
@@ -75,7 +75,7 @@ public class Layout : MonoBehaviour
                     break;
 
                 case "drawpile":
-                    tSD.stagger.x = float.Parse(slotsX[i].att("xstart"));
+                    tSD.stagger.x = float.Parse(slotsX[i].att("xstagger"));
                     drawPile = tSD;
                     break;
 
