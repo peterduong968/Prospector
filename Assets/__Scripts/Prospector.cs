@@ -31,7 +31,7 @@ public class Prospector : MonoBehaviour {
         for (int cNum=0; cNum<deck.cards.Count; cNum++)
         {
             c = deck.cards[cNum];
-            c.transform.localPosition = new Vector3((cNum % 13) * 13);
+            c.transform.localPosition = new Vector3((cNum % 13) * 13, cNum/13*4,0);
         }
 	}
 
