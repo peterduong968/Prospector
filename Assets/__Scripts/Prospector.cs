@@ -5,7 +5,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-public class Prospector : MonoBehaviour {
+public class Prospector : MonoBehaviour
+{
 
     static public Prospector S;
 
@@ -25,11 +26,13 @@ public class Prospector : MonoBehaviour {
     public List<CardProspector> tableau;
     public List<CardProspector> discardPile;
 
-    void Awake() {
+    void Awake()
+    {
         S = this;
     }
 
-    void Start() {
+    void Start()
+    {
         deck = GetComponent<Deck>();
         deck.InitDeck(deckXML.text);
         Deck.Shuffle(ref deck.cards);
@@ -69,7 +72,7 @@ public class Prospector : MonoBehaviour {
 
     void LayoutGame()
     {
-        if(layoutAnchor == null)
+        if (layoutAnchor == null)
         {
             GameObject tGO = new GameObject("_LayoutAnchor");
             layoutAnchor = tGO.transform;
@@ -78,7 +81,7 @@ public class Prospector : MonoBehaviour {
 
         CardProspector cp;
 
-        foreach(SlotDef tSD in layout.slotDefs)
+        foreach (SlotDef tSD in layout.slotDefs)
         {
             cp = Draw();
             cp.faceUp = tSD.faceUp;
@@ -120,7 +123,7 @@ public class Prospector : MonoBehaviour {
             layout.multiplier.y * layout.discardPile.y, -layout.discardPile.layerID);
         cd.faceUp = true;
         cd.SetSortingLayerName(layout.discardPile.layerName);
-        cd.SetSortOrder(0); 
+        cd.SetSortOrder(0);
     }
 
     void UpdateDrawPile()
@@ -154,8 +157,31 @@ public class Prospector : MonoBehaviour {
                 break;
 
             case eCardState.tableau:
+                bool validMatch = true;
+                if (!cd.faceUp)
+                {
+                    validMatch = false;
+                }
+                if (!AdjacentRank(cd, target))
+                {
+                    validMatch = false;
+                }
+                if (!validMatch) return;
+                tableau.Remove(cd);
+                MoveToTarget(cd);
                 break;
         }
     }
 
+    public bool AdjacentRank(CardProspector c0, CardProspector c1)
+    {
+        if (!c0.faceUp || !c1.faceUp) return (false);
+        if (Mathf.Abs(c0.rank - c1.rank) == 1)
+        {
+            return (true);
+        }
+        if (c0.rank == 1 && c1.rank == 13) return (true);
+        if (c0.rank == 13 && c1.rank == 1) return (true);
+        return false;
     }
+}
