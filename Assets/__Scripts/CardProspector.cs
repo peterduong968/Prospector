@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum eCardState { drawpile, tableau, target, discard }
 
-public class CardProspector : MonoBehaviour
+public class CardProspector : Card
 {
     [Header("Set Dynamically: CardProspector")]
     public eCardState state = eCardState.drawpile;
@@ -13,15 +13,5 @@ public class CardProspector : MonoBehaviour
     public SlotDef slotDef;
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }
