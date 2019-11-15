@@ -25,7 +25,7 @@ public class Layout : MonoBehaviour
     public SlotDef drawPile;
     public SlotDef discardPile;
 
-    public string[] sortingLayerNames = new string[] { "Row2", "Row3", "Discard", "Draw" };
+    public string[] sortingLayerNames = new string[] {"Row0", "Row1", "Row2", "Row3", "Discard", "Draw" };
 
     public void ReadLayout(string xmlText)
     {
@@ -65,7 +65,7 @@ public class Layout : MonoBehaviour
                     tSD.id = int.Parse(slotsX[i].att("idd"));
                     if (slotsX[i].HasAtt("hiddenby"))
                     {
-                        string[] hiding = slotsX[i].att("hiddenby");
+                        string[] hiding = slotsX[i].att("hiddenby").Split();
                         foreach (string s in hiding)
                         {
                             tSD.hiddenBy.Add(int.Parse(s));
